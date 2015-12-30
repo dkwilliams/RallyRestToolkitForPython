@@ -968,6 +968,43 @@ class Rally(object):
     create = put  # a more intuitive alias for the operation
 
 
+    def changeRelativeRank(self, entityName, changingObjectID, referenceObjectID, direction, workspace='current', project='current', **kwargs):
+        """
+            Given a Rally entityName, an objectID to change, a referenceObjectID, relative direction, workspace, project
+			Change the relative rank of the changingObject to above/below a reference Object
+        """
+        validDirections = ["above","below"]
+		auth_token = self.obtainSecurityToken()
+        # see if we need to transform workspace / project values of 'current' to actual
+        if workspace == 'current':
+            workspace = self.getWorkspace().Name  # just need the Name here
+        if project == 'current':
+            project = self.getProject().Name  # just need the Name here
+
+        entityName = self._officialRallyEntityName(entityName)
+        if entityName.lower() == 'recyclebinentry':
+            raise RallyRESTAPIError("create operation unsuppor	
+
+        resource = '%s/%s?key=%s' % (entityName.lower(), oid, auth_token) 
+        context, augments = self.contextHelper.identifyContext(workspace=workspace, project=project)
+        if augments:
+            resource += ("&" + "&".join(augments))
+        full_resource_url = "%s/%s" % (self.service_url, resource)
+##
+##        print "resource: %s" % resource
+##
+        response = self.session.post(full_resource_url, data=payload, headers=RALLY_REST_HEADERS)
+        response = RallyRESTResponse(self.session, context, resource, response, "shell", 0)
+        if response.status_code != HTTP_REQUEST_SUCCESS_CODE:
+            raise RallyRESTAPIError('Unable to update the %s' % entityName)
+
+        # now issue a request to get the entity item (mostly so we can get the FormattedID)
+        # and return it
+        item = self._itemQuery(entityName, changingObjectID, workspace=workspace, project=project)
+        return item
+
+
+			
     def post(self, entityName, itemData, workspace='current', project='current', **kwargs):
         """
             Given a Rally entityName, a dict with data that the entity should be updated with,
