@@ -12,12 +12,12 @@ except:
         from setuptools import setup
 
 PACKAGE       = 'pyral'
-VERSION       = '1.1.1'
+VERSION       = '1.1.2'
 OFFICIAL_NAME = 'Python toolkit for Rally REST API'
 PKG_URL_NAME  = 'python-toolkit-rally-rest-api'
 AUTHOR        = 'Kip Lehman (Rally Software Development)'
 AUTHOR_EMAIL  = 'klehman@rallydev.com'
-GITHUB_SITE   = 'https://github.com/RallyTools/RallyRestToolkitForPython'
+GITHUB_SITE   = 'https://github.com/dkwilliams/RallyRestToolkitForPython'
 GITHUB_DISTS  = '%s/blob/master/dists' % GITHUB_SITE
 DOWNLOADABLE_ZIP = '%s/%s-%s.zip' % (GITHUB_DISTS, PACKAGE, VERSION)
 

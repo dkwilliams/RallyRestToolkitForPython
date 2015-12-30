@@ -971,10 +971,10 @@ class Rally(object):
     def changeRelativeRank(self, entityName, changingObjectID, referenceObjectID, direction, workspace='current', project='current', **kwargs):
         """
             Given a Rally entityName, an objectID to change, a referenceObjectID, relative direction, workspace, project
-			Change the relative rank of the changingObject to above/below a reference Object
+            Change the relative rank of the changingObject to above/below a reference Object
         """
         validDirections = ["above","below"]
-		auth_token = self.obtainSecurityToken()
+        auth_token = self.obtainSecurityToken()
         # see if we need to transform workspace / project values of 'current' to actual
         if workspace == 'current':
             workspace = self.getWorkspace().Name  # just need the Name here
@@ -983,7 +983,7 @@ class Rally(object):
 
         entityName = self._officialRallyEntityName(entityName)
         if entityName.lower() == 'recyclebinentry':
-            raise RallyRESTAPIError("create operation unsuppor	
+            raise RallyRESTAPIError("create operation unsuppor    
 
         resource = '%s/%s?key=%s' % (entityName.lower(), oid, auth_token) 
         context, augments = self.contextHelper.identifyContext(workspace=workspace, project=project)
@@ -1004,7 +1004,7 @@ class Rally(object):
         return item
 
 
-			
+            
     def post(self, entityName, itemData, workspace='current', project='current', **kwargs):
         """
             Given a Rally entityName, a dict with data that the entity should be updated with,
